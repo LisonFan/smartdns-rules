@@ -1,10 +1,13 @@
+name: build smartdns rules dat files
+
 on:
   workflow_dispatch:
+  push:
+  schedule:
+    - cron: "0 0 * * *"
 
 jobs:
-  overseas-site:
-    name: overseas site
-
+  build:
     runs-on: ubuntu-latest
 
     steps:
