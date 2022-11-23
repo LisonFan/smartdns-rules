@@ -14,6 +14,7 @@ jobs:
       - name: Download Raw Data
         run: |
           mkdir tmp
+          mkdir publish
           cd tmp
 
           wget -O gfwlist2dnsmasq.sh https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh
@@ -28,8 +29,25 @@ jobs:
           sed 's/^\.//' \
           > overseas.raw.conf
 
-          cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > result.raw.conf
+          cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > merge.raw.conf
 
-          cat result.raw.conf
+          cat merge.raw.conf | \
+          sed 's/^/domain-rules \//' | \
+          sed 's/$/\/ -nameserver overseas -speed-check-mode none/' \
+          > result.conf
+
+          cp result.conf ../publish/overseas.conf
 
         shell: bash
+
+      - name: Git push assets to "release" branch
+        run: |
+          cd publish || exit 1
+          git init
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b release
+          git add .
+          git commit -m "`date '+%Y%m%d%H%M'`"
+          git remote add origin "https://${{ github.actor }}:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}"
+          git push -f -u origin release
