@@ -1,0 +1,23 @@
+on:
+  workflow_dispatch:
+
+jobs:
+  overseas-site:
+    name: overseas site
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@master
+
+      - name: Download Raw Data
+        run: |
+          mkdir rawdata
+          wget -O ./rawdata/overseas-site.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/Proxy/Proxy_Domain.list
+          pwd
+          ls -la
+          cd rawdata
+          pwd
+          ls -la
+        shell: bash
