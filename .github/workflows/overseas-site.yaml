@@ -27,6 +27,9 @@ jobs:
           sed '/^$/d' | \
           sed 's/^\.//' \
           > overseas.raw.conf
-          cat overseas.raw.conf
+
+          cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > result.raw.conf
+
+          cat result.raw.conf
 
         shell: bash
