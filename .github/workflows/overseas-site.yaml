@@ -13,11 +13,14 @@ jobs:
 
       - name: Download Raw Data
         run: |
-          mkdir rawdata
-          wget -O ./rawdata/overseas-site.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/Proxy/Proxy_Domain.list
-          pwd
-          ls -la
-          cd rawdata
-          pwd
-          ls -la
+          mkdir tmp
+          cd tmp
+
+          wget -O gfwlist2dnsmasq.sh https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh
+          bash gfwlist2dnsmasq.sh -l -o gfwlist.raw.conf
+          cat gfwlist.raw.conf
+
+          wget -O overseas.raw.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/Proxy/Proxy_Domain.list
+          cat overseas.raw.conf
+
         shell: bash
