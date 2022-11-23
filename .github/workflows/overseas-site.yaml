@@ -18,9 +18,15 @@ jobs:
 
           wget -O gfwlist2dnsmasq.sh https://github.com/cokebar/gfwlist2dnsmasq/raw/master/gfwlist2dnsmasq.sh
           bash gfwlist2dnsmasq.sh -l -o gfwlist.raw.conf
-          cat gfwlist.raw.conf
 
           wget -O overseas.raw.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/Proxy/Proxy_Domain.list
+          cat overseas.raw.conf | \
+          sed 's/^#.*//' | \
+          sed '/^\s*$/d' | \
+          sed '/^[  ]*$/d' | \
+          sed '/^$/d' | \
+          sed 's/^\.//' \
+          > overseas.raw.conf
           cat overseas.raw.conf
 
         shell: bash
