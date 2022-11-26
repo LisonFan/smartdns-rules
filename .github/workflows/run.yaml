@@ -51,9 +51,13 @@ jobs:
           sed '/^$/d' \
           > china_ip.conf
 
+          cat china_ip.conf | \
+          sed 's/^/whitelist-ip /' \
+          > whitelist_ip.conf
+
           cp overseas.result.conf ../publish/overseas-site.list
           cp china_site.result.conf ../publish/china-site.list
-          cp china_ip.conf ../publish/china-ip.list
+          cp whitelist_ip.conf ../publish/whitelist-ip.list
 
         shell: bash
 
