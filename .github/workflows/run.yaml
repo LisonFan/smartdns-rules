@@ -45,7 +45,7 @@ jobs:
           sed '/^\s*$/d' | \
           sed '/^[  ]*$/d' | \
           sed '/^$/d' | \
-          sed 's/^\.//' \
+          sed 's/^\.//' | \
           sed 's/^/domain-rules \//' | \
           sed 's/$/\/ -nameserver china/' \
           > china_site.result.conf
@@ -55,15 +55,15 @@ jobs:
           sed 's/^#.*//' | \
           sed '/^\s*$/d' | \
           sed '/^[  ]*$/d' | \
-          sed '/^$/d' | \
+          sed '/^$/d' \
           > china_ip.conf
 
           cat china_ip.conf | \
-          sed 's/^/whitelist-ip \//' | \
+          sed 's/^/whitelist-ip \//' \
           > whitelist_ip.conf
 
           cat china_ip.conf | \
-          sed 's/^/blacklist-ip \//' | \
+          sed 's/^/blacklist-ip \//' \
           > blacklist_ip.conf
 
           cp overseas.result.conf ../publish/overseas.conf
