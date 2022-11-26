@@ -50,7 +50,7 @@ jobs:
 
           cat china.raw.conf | \
           sed 's/^/domain-rules \//' | \
-          sed 's/$/\/ -nameserver china -speed-check-mode tcp:80,tcp:443,ping/' \
+          sed 's/$/\/ -nameserver china -speed-check-mode ping,tcp:80,tcp:443/' \
           > china.result.conf
 
           cp overseas.result.conf ../publish/overseas.conf
