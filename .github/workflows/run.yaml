@@ -32,14 +32,29 @@ jobs:
           sed 's/^\.//' \
           > overseas.raw.conf
 
+          wget -O china_site.raw.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
+          cat china_site.raw.conf | \
+          sed 's/^#.*//' | \
+          sed '/^\s*$/d' | \
+          sed '/^[  ]*$/d' | \
+          sed '/^$/d' | \
+          sed 's/^\.//' \
+          > china.raw.conf
+
           cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > merge.raw.conf
 
           cat merge.raw.conf | \
           sed 's/^/domain-rules \//' | \
           sed 's/$/\/ -nameserver overseas -speed-check-mode none/' \
-          > result.conf
+          > overseas.result.conf
 
-          cp result.conf ../publish/overseas.conf
+          cat china.raw.conf | \
+          sed 's/^/domain-rules \//' | \
+          sed 's/$/\/ -speed-check-mode ping,tcp:80,tcp:443/' \
+          > china.result.conf
+
+          cp overseas.result.conf ../publish/overseas.conf
+          cp china.result.conf ../publish/china.conf
 
         shell: bash
 
