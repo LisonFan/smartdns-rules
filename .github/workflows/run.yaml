@@ -32,12 +32,7 @@ jobs:
           sed 's/^\.//' \
           > overseas.raw.conf
 
-          cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > merge.raw.conf
-
-          cat merge.raw.conf | \
-          sed 's/^/domain-rules \//' | \
-          sed 's/$/\/ -nameserver overseas -speed-check-mode none/' \
-          > overseas.result.conf
+          cat gfwlist.raw.conf overseas.raw.conf | sort | uniq > overseas.result.conf
 
           wget -O china_site.raw.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/ChinaMax/ChinaMax_Domain.list
           cat china_site.raw.conf | \
@@ -45,9 +40,7 @@ jobs:
           sed '/^\s*$/d' | \
           sed '/^[  ]*$/d' | \
           sed '/^$/d' | \
-          sed 's/^\.//' | \
-          sed 's/^/domain-rules \//' | \
-          sed 's/$/\/ -nameserver china/' \
+          sed 's/^\.//' \
           > china_site.result.conf
 
           wget -O china_ip.raw.conf https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ChinaIPs/ChinaIPs_IP.txt
@@ -58,18 +51,9 @@ jobs:
           sed '/^$/d' \
           > china_ip.conf
 
-          cat china_ip.conf | \
-          sed 's/^/whitelist-ip /' \
-          > whitelist_ip.conf
-
-          cat china_ip.conf | \
-          sed 's/^/blacklist-ip /' \
-          > blacklist_ip.conf
-
-          cp overseas.result.conf ../publish/overseas-site.conf
-          cp china_site.result.conf ../publish/china-site.conf
-          cp whitelist_ip.conf ../publish/whitelist-ip.conf
-          cp blacklist_ip.conf ../publish/blacklist-ip.conf
+          cp overseas.result.conf ../publish/overseas-site.list
+          cp china_site.result.conf ../publish/china-site.list
+          cp china_ip.conf ../publish/china-ip.list
 
         shell: bash
 
