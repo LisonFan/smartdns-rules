@@ -59,11 +59,11 @@ jobs:
           > china_ip.conf
 
           cat china_ip.conf | \
-          sed 's/^/whitelist-ip \//' \
+          sed 's/^/whitelist-ip /' \
           > whitelist_ip.conf
 
           cat china_ip.conf | \
-          sed 's/^/blacklist-ip \//' \
+          sed 's/^/blacklist-ip /' \
           > blacklist_ip.conf
 
           cp overseas.result.conf ../publish/overseas.conf
