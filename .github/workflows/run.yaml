@@ -65,7 +65,7 @@ jobs:
           cp overseas.result.conf ../publish/overseas-site.list
           cp china_site.result.conf ../publish/china-site.list
           cp whitelist_ip.conf ../publish/whitelist-ip.conf
-          cp apple.conf ../publish/apple.conf
+          cp apple.conf ../publish/apple.list
 
         shell: bash
 
