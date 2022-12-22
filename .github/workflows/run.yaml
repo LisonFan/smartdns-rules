@@ -51,6 +51,13 @@ jobs:
           sed '/^$/d' \
           > china_ip.conf
 
+          wget -O Apple.raw.conf https://github.com/blackmatrix7/ios_rule_script/raw/master/rule/Surge/Apple/Apple.list
+          cat Apple.raw.conf | \
+          grep -E "(DOMAIN,|DOMAIN-SUFFIX,)" | \
+          sed 's/DOMAIN-SUFFIX,//' | \
+          sed 's/DOMAIN,//' \
+          > apple.conf
+
           cat china_ip.conf | \
           sed 's/^/whitelist-ip /' \
           > whitelist_ip.conf
@@ -58,6 +65,7 @@ jobs:
           cp overseas.result.conf ../publish/overseas-site.list
           cp china_site.result.conf ../publish/china-site.list
           cp whitelist_ip.conf ../publish/whitelist-ip.conf
+          cp apple.conf ../publish/apple.conf
 
         shell: bash
 
